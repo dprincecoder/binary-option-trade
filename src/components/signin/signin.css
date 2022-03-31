@@ -1,0 +1,87 @@
+.signin {
+	min-height: 100vh;
+}
+
+.signin-grid {
+	padding: 4rem;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+}
+@media only screen and (min-width: 200px) and (max-width: 560px) {
+	.signin-grid {
+		grid-template-columns: auto;
+		padding: 2rem;
+	}
+}
+
+@media only screen and (min-width: 560px) and (max-width: 960px) {
+	.signin-grid {
+		grid-template-columns: auto;
+	}
+}
+
+.signin-left-options {
+	margin: 1rem 0;
+}
+
+.signin-left-icon {
+	display: flex;
+	align-items: center;
+	margin: 10px 0;
+}
+
+.signin-left-icon-span {
+	margin-left: 5px;
+}
+
+.signin-left-icon-span small {
+	color: green;
+	font-size: 1rem;
+}
+
+.signin-left-icon .MuiSvgIcon-root {
+	color: rgb(33, 46, 233);
+}
+
+.signin-Right {
+	border: 1px solid rgb(33, 46, 233);
+	border-radius: 10px;
+	padding: 2rem;
+}
+
+.signin-right-top-container {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+}
+@media only screen and (min-width: 200px) and (max-width: 560px) {
+	.signin-right-top-container {
+		grid-template-columns: auto;
+	}
+}
+
+.signin-details {
+	text-align: center;
+	color: rgb(33, 46, 233);
+	margin-top: 1rem;
+}
+
+.signin-right-bottom-wrapper {
+	display: flex;
+}
+.signin-btn button {
+	margin-right: 1rem;
+}
+@media only screen and (min-width: 200px) and (max-width: 560px) {
+	.signin-right-bottom-wrapper {
+		flex-direction: column;
+	}
+	.signin-left {
+		margin-bottom: 1rem;
+	}
+}
+
+@media only screen and (min-width: 560px) and (max-width: 960px) {
+	.signin-left {
+		margin-bottom: 1rem;
+	}
+}

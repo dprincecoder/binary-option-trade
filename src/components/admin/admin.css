@@ -1,0 +1,219 @@
+.admin-panel {
+	width: 100%;
+	display: flex;
+	/* min-height: 90vh; */
+}
+
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.admin-panel {
+		flex-direction: column;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.admin-panel {
+		flex-direction: column;
+	}
+}
+
+.leftbar {
+	width: 40%;
+	background-color: rgb(46, 44, 44);
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.leftbar {
+		width: 100%;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.leftbar {
+		width: 100%;
+	}
+}
+
+.leftbar-title,
+.leftbar-wrapper {
+	background-color: #fff;
+	margin: 1rem;
+	padding: 1rem;
+	border-radius: 10px;
+	text-align: center;
+}
+
+.leftbar-wrapper-title {
+	background-color: rgb(32, 10, 10);
+	margin: 1rem;
+	padding: 1rem;
+	border-radius: 10px;
+	text-align: center;
+	color: white;
+	font-size: 1.3rem;
+}
+
+.tipicon {
+	color: yellow;
+}
+
+.leftbar-list {
+	background-color: rgb(32, 10, 10);
+	margin: 1rem;
+	padding: 1rem;
+	border-radius: 10px;
+	text-align: center;
+	color: white;
+	list-style: none;
+}
+
+.leftbar-list-item,
+.user-investment-details-coins {
+	background-color: rgb(51, 61, 25);
+	margin: 1rem;
+	padding: 7px;
+	border-radius: 10px;
+	text-align: center;
+	color: white;
+	text-transform: capitalize;
+}
+
+.rightbar {
+	background-color: rgb(46, 44, 44);
+	padding: 1rem;
+	margin-left: 1rem;
+	width: 100%;
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.rightbar {
+		margin-left: 0;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.rightbar {
+		margin-left: 0;
+	}
+}
+
+.right-cover,
+.rightbar-wrappercon {
+	display: flex;
+	justify-content: space-between;
+}
+
+.rightbar-title {
+	background-color: #fff;
+	margin: 1rem;
+	padding: 1rem;
+	border-radius: 10px;
+	text-align: center;
+}
+
+.rightbar-wrapper {
+	background-color: #fff;
+	margin: 1rem;
+	padding: 1rem;
+	border-radius: 10px;
+}
+
+.right-wrapper-title {
+	background-color: rgb(32, 10, 10);
+	color: white;
+	margin: 1rem;
+	padding: 1rem;
+	border-radius: 10px;
+}
+
+.rightbar-user-container {
+	background-color: rgb(32, 10, 10);
+	color: white;
+	margin: 1rem;
+	padding: 1rem;
+	border-radius: 10px;
+	display: flex;
+	justify-content: space-between;
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.rightbar-user-container {
+		flex-direction: column;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.rightbar-user-container {
+		flex-direction: column;
+	}
+}
+
+.user-image-wrapper {
+	border-radius: 50%;
+	max-width: 50px;
+	height: 50px;
+	overflow: hidden;
+	border: 2px solid #037fff;
+}
+
+.userimg {
+	object-fit: cover;
+	width: 100%;
+	height: 100px;
+}
+
+.user-details-wrapper {
+	display: flex;
+	/* background-color: #fff; */
+	justify-content: center;
+	align-items: center;
+	background-color: rgb(51, 61, 25);
+	margin: 1rem;
+	padding: 7px;
+	border-radius: 10px;
+	text-align: center;
+	color: white;
+	text-transform: capitalize;
+	display: flex;
+	flex-direction: column;
+}
+
+.username-wrapper {
+	padding: 1rem 1rem 1rem 6px;
+}
+
+.usermore-action-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.usermore-action-btn {
+		flex-direction: column;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.usermore-action-btn {
+		flex-direction: column;
+	}
+}
+
+.user-investment-details {
+	display: flex;
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.user-investment-details {
+		flex-direction: column;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.user-investment-details {
+		flex-direction: column;
+	}
+}
+
+.user-investment-details-amount {
+	background-color: rgb(51, 61, 25);
+	margin: 1rem;
+	padding: 7px;
+	border-radius: 10px;
+	text-align: center;
+	color: white;
+	text-transform: capitalize;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}

@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+.coin-market {
+	width: 100%;
+	height: 50vh;
+	overflow-y: scroll;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: "Montserrat", sans-serif;
+	background-color: #1a1a1c;
+	color: white;
+}
+.coin-market::-webkit-scrollbar {
+	display: none;
+}
+.coin-container {
+	display: flex;
+	justify-content: center;
+}
+
+.coin-row {
+	display: flex;
+	flex-direction: row;
+	justify-items: start;
+	align-items: center;
+	height: 80px;
+	border-bottom: 1px solid #d7d7d7;
+	width: 900px;
+}
+
+.coin-row:hover .coin h1 {
+	background-color: #fff;
+	color: #000;
+	padding: 3px;
+	border-radius: 5px;
+}
+
+.coin-row:hover .coin-percent {
+	background-color: #fff;
+	/* color: #000; */
+	padding: 2px 0;
+	border-radius: 5px;
+}
+
+.coin {
+	display: flex;
+	align-items: center;
+	padding-right: 24px;
+	min-width: 300px;
+}
+
+.coin h1 {
+	font-size: 16px;
+	width: 150px;
+}
+
+.coin img {
+	height: 30px;
+	width: 30px;
+	margin-right: 10px;
+}
+
+.coin-symbol {
+	text-transform: uppercase;
+}
+
+.coin-data {
+	display: flex;
+	text-align: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.coin-price {
+	width: 110px;
+}
+
+.coin-volume {
+	width: 200px;
+}
+
+.coin-marketcap {
+	width: 240px;
+}
+
+.coin-percent {
+	width: 80px;
+}
+
+.red {
+	color: #f00606;
+}
+
+.green {
+	color: #11d811;
+}

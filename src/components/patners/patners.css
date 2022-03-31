@@ -1,0 +1,13 @@
+.patners{
+    margin: 3rem 0;
+}
+.imgs{
+    display: flex;
+}
+
+.marquee-img{
+    width: 150px;
+    height: 60px;
+    margin: 0 1rem;
+    border-radius: 10px;
+}

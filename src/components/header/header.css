@@ -1,0 +1,115 @@
+.hero {
+	margin: 3rem;
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+    .hero{
+        margin: 2rem 1rem;
+    }
+} 
+@media screen and (min-width: 560px) and (max-width: 960px) {
+    .hero{
+        margin: 2rem 1rem;
+    }
+}
+
+.hero-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.hero-grid {
+		grid-template-columns: auto;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.hero-grid {
+		grid-template-columns: auto;
+	}
+}
+
+
+.hero-left {
+	width: 500px;
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.hero-left {
+		width: 100%;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.hero-left {
+		width: 100%;
+	}
+}
+
+.hero-left p {
+	line-height: 1.6;
+}
+
+.styles_typicalWrapper__1_Uvh {
+	font-size: 5rem !important;
+	color: rgb(33, 46, 238);
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.styles_typicalWrapper__1_Uvh {
+		font-size: 3rem !important;
+	}
+}
+
+.hero-left-login {
+	color: rgb(33, 46, 238);
+	cursor: pointer;
+}
+
+.hero-left-start {
+	background-color: rgb(33, 46, 238);
+	border-color: rgb(33, 46, 238);
+	line-height: 1.5715;
+	position: relative;
+	display: inline-block;
+	font-weight: 600;
+	margin-top: 1rem;
+	white-space: nowrap;
+	text-align: center;
+	box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	touch-action: manipulation;
+	height: 32px;
+	color: white;
+	padding: 4px 10px;
+	font-size: 14px;
+	border-radius: 5px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.hero-left-start a {
+	color: white;
+	text-decoration: none;
+}
+
+.hero-right {
+	width: 650px;
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+    .hero-right{
+        width: 100%;
+        margin-top: 1rem;
+    }
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+    .hero-right{
+        width: 100%;
+        margin-top: 1rem;
+    }
+}
+
+.hero-right-img {
+	border-radius: 20px;
+	width: 100%;
+}

@@ -1,0 +1,81 @@
+.footer {
+	/* width: 100%; */
+	background: url("/public/assets/bg-trade.jpg") center no-repeat;
+	background-size: cover;
+	padding: 2rem;
+}
+
+
+.footer-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+}
+
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.footer-grid {
+		grid-template-columns: auto;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.footer-grid {
+		grid-template-columns: auto;
+	}
+}
+
+.img-wrapper {
+	width: 200px;
+	height: 200px;
+	overflow: hidden;
+	border-radius: 20px;
+}
+@media screen and (min-width: 200px) and (max-width: 560px) {
+	.img-wrapper {
+		transform: translateX(50%);
+	}
+
+	.footer-grid-items{
+		margin-bottom: 1rem;
+	}
+}
+@media screen and (min-width: 560px) and (max-width: 960px) {
+	.img-wrapper {
+        width: 400px;
+        height: 400px;
+		transform: translateX(50%);
+	}
+	.footer-grid-items{
+		margin-bottom: 1rem;
+	}
+}
+
+.footer-img {
+	width: 100%;
+	object-fit: cover;
+}
+
+.footer-grid-items {
+    color: white;
+}
+
+.footer-list{
+    font-size: 1.2rem;
+}
+
+.footer-list-item .mail{
+    color: rgb(186, 190, 238);
+    text-decoration: none;
+}
+
+.footer-year{
+    width: 100%;
+    border-top: 1px solid white;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.footer-year p{
+    margin-top: 1rem;
+    color: white;
+    font-size: 1.2rem;
+
+}
