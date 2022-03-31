@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ButtonHandler from "../../helpers/forms/button/ButtonHandler";
 import { useParams } from "react-router-dom";
 import DB from "../../firebase/functions";
+import { Alert, AlertTitle } from "@mui/material";
 const activityTabs = [
   {
     id: 1,
@@ -161,11 +162,11 @@ const Dashboard = () => {
   const [getUserLocation, setGetUserLocation] = useState({});
   const [userInvestment, setUserInvestment] = useState({});
   const [userInvestmentCoins, setUserInvestmentCoins] = useState([]);
-  // const copyText = null;
+  const [transactionReceivedAnimation, seTtransactionReceivedAnimation] =
+    useState(false);
   const addressRef = useRef();
   const { userId } = useParams();
-  // addressRef.innerHTML = copyText;
-  // console.log(addressRef.innerHTML);
+
   useEffect(() => {
     DB.collection("usersInvestment")
       .doc(userId)
@@ -209,6 +210,8 @@ const Dashboard = () => {
     const allCoins = await axios.get(coinLink);
     setFetchedCoin(allCoins.data);
   };
+
+  const localDB = JSON.parse(localStorage.getItem(username || fullName));
   useEffect(() => {
     fetchCoin();
   }, []);
@@ -261,6 +264,34 @@ const Dashboard = () => {
   //fn to change str to num and add both
   const sum = (str1, str2) => {
     return Number(str1) + Number(str2);
+  };
+
+  const existCoin = (nextCoin) => {
+    return localDB.filter((coin) => coin.coinName === nextCoin);
+  };
+
+  const addUserCoinToLocalDB = (nextCoinItem) => {
+    const coinIncrements = localDB.map((i) => i.qty).toString();
+    const coinExists = existCoin(selectedCoin);
+    if (coinExists) {
+      return localDB.map((coinItem) =>
+        coinItem.coinName == nextCoinItem.coinName
+          ? { ...coinItem, qty: coinItem.qty + coinIncrements }
+          : coinItem
+      );
+    }
+
+    return [...localDB, { ...nextCoinItem, qty: coinIncrements }];
+  };
+
+  const nextCoinItem = {
+    userName: username || fullName,
+    userId,
+    coinName: selectedCoin,
+    qty: userAmountToCoin,
+    activeAmount: depositArr.map((item) => item.amount).toString(),
+    activeProfit: userProfit.toString(),
+    date: currentDate,
   };
 
   const transactionObj = () => {
@@ -320,17 +351,25 @@ const Dashboard = () => {
   };
 
   const confirmTransaction = async () => {
-    // setActiveDeposit(!activeDeposit);
-    transactionObj();
+    seTtransactionReceivedAnimation(true);
+    // transactionObj();
+    localStorage.setItem(
+      username || fullName,
+      JSON.stringify(addUserCoinToLocalDB(nextCoinItem))
+    );
     setTimeout(() => {
       window.location.reload();
-    }, 2000);
+    }, 10000);
     // console.log(obj);
     // DB.collection("usersInvestment").doc(userId).set(obj);
   };
 
   return (
-    <div className="dashboard">
+    <div
+      className={`dashboard ${
+        transactionReceivedAnimation ? "animate-in" : "animate-out"
+      }`}
+    >
       <Nav />
       <div className="dashboard-container">
         <div className="left-dash">
@@ -342,11 +381,11 @@ const Dashboard = () => {
             </div>
             <div className="left-dash-header-bal box-sh">
               <h4>Active Balance</h4>
-              <p>{formatAmount(userInvestment.activeAmount)}</p>
+              <p>{formatAmount(Number(userInvestment.activeAmount))}</p>
             </div>
             <div className="left-dash-header-bal box-sh">
               <h4>Active Profit</h4>
-              <p>{formatAmount(userInvestment.activeProfit)} </p>
+              <p>{formatAmount(Number(userInvestment.activeProfit))} </p>
             </div>
           </div>
           <div className="left-dash-icons-holder">
@@ -906,6 +945,16 @@ const Dashboard = () => {
                   onClick={confirmTransaction}
                 />
               </div>
+              {
+                <div className="right-dash-transaction-withdrawal-info-items-list-copy-addrss animate-container">
+                  <Alert severity="success" className="animate-div">
+                    <AlertTitle>Transaction Received</AlertTitle>
+                    We have received your transaction request, we will process
+                    it within 7 business days. Mean while your transactions will
+                    be displayed in your dashboard while we process it!
+                  </Alert>
+                </div>
+              }
             </div>
           </div>
         </div>

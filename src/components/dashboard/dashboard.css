@@ -1,400 +1,419 @@
 .dashboard-container {
-	width: 100%;
-	/* background-color: rgb(240, 240, 240); */
-	min-height: 90vh;
-	/* display: grid;
+  width: 100%;
+  /* background-color: rgb(240, 240, 240); */
+  min-height: 90vh;
+  /* display: grid;
 	grid-template-columns: repeat(2, 1fr); */
-	display: flex;
+  display: flex;
 }
 
 @media screen and (min-width: 200px) and (max-width: 560px) {
-	.dashboard-container {
-		flex-direction: column;
-	}
+  .dashboard-container {
+    flex-direction: column;
+  }
 }
 @media screen and (min-width: 560px) and (max-width: 960px) {
-	.dashboard-container {
-		flex-direction: column;
-	}
+  .dashboard-container {
+    flex-direction: column;
+  }
 }
 
 .left-dash {
-	width: 40%;
-	background-color: rgb(240, 240, 240);
-	/* background-color: rgb(255, 249, 249); */
+  width: 40%;
+  background-color: rgb(240, 240, 240);
+  /* background-color: rgb(255, 249, 249); */
 }
 @media screen and (min-width: 200px) and (max-width: 560px) {
-	.left-dash {
-		width: 100%;
-	}
+  .left-dash {
+    width: 100%;
+  }
 }
 @media screen and (min-width: 560px) and (max-width: 960px) {
-	.left-dash {
-		width: 100%;
-	}
+  .left-dash {
+    width: 100%;
+  }
 }
 
 .left-dash-header,
 .left-dash-assets,
 .left-dash-icons-holder {
-	background-color: #fff;
-	margin: 1rem;
-	padding: 1rem;
-	border-radius: 10px;
+  background-color: #fff;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
 }
 
 .left-dash-icon {
-	align-items: center;
-	display: flex;
+  align-items: center;
+  display: flex;
 }
 
 .left-dash-icon-span {
-	margin-left: 1rem;
-	margin-bottom: 10px;
+  margin-left: 1rem;
+  margin-bottom: 10px;
 }
 
 .right-dash-tab-active {
-	background-color: rgb(33, 46, 238) !important;
-	transition: all 0.5 ease-in-out;
-	color: white;
+  background-color: rgb(33, 46, 238) !important;
+  transition: all 0.5 ease-in-out;
+  color: white;
 }
 
 .box-sh {
-	margin: 1rem 0;
-	/* background-color: rgb(180, 179, 179); */
-	background-color: rgba(71, 79, 187, 0.815);
-	padding: 1rem;
-	text-align: center;
-	border-radius: 10px;
-	color: white;
+  margin: 1rem 0;
+  /* background-color: rgb(180, 179, 179); */
+  background-color: rgba(71, 79, 187, 0.815);
+  padding: 1rem;
+  text-align: center;
+  border-radius: 10px;
+  color: white;
 }
 
 .right-dash {
-	background-color: rgb(240, 240, 240);
-	margin-left: 2rem;
-	padding: 2rem;
-	width: 100%;
-	flex-grow: 1;
-	transition: all 0.5 ease-in-out;
+  background-color: rgb(240, 240, 240);
+  margin-left: 2rem;
+  padding: 2rem;
+  width: 100%;
+  flex-grow: 1;
+  transition: all 0.5 ease-in-out;
 }
 @media screen and (min-width: 200px) and (max-width: 560px) {
-	.right-dash {
-		margin-left: 0;
-	}
+  .right-dash {
+    margin-left: 0;
+  }
 }
 @media screen and (min-width: 560px) and (max-width: 960px) {
-	.right-dash {
-		margin-left: 0;
-	}
+  .right-dash {
+    margin-left: 0;
+  }
 }
 
 .right-dash-wel-title {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 .right-dash-wel-title h3 {
-	background-color: #fff;
-	padding: 1rem;
-	border-radius: 10px;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
 }
 
 .right-dash-wel-title p {
-	background-color: #fff;
-	padding: 1rem;
-	border-radius: 10px;
-	color: green;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  color: green;
 }
 
 .right-dash-activity-tab {
-	width: 100%;
-	background-color: #fff;
-	padding: 1rem;
-	border-radius: 10px;
-	transition: all 0.5s ease-in-out;
+  width: 100%;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  transition: all 0.5s ease-in-out;
 }
 
 .right-dash-activity-tab-list {
-	display: flex;
-	padding: 0 1rem;
-	/* transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); */
-	transition: all 0.5s ease-in-out;
+  display: flex;
+  padding: 0 1rem;
+  /* transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); */
+  transition: all 0.5s ease-in-out;
 }
 @media screen and (min-width: 200px) and (max-width: 560px) {
-	.right-dash-activity-tab-list {
-		flex-direction: column;
-	}
+  .right-dash-activity-tab-list {
+    flex-direction: column;
+  }
 }
 @media screen and (min-width: 560px) and (max-width: 960px) {
-	.right-dash-activity-tab-list {
-		flex-direction: column;
-	}
+  .right-dash-activity-tab-list {
+    flex-direction: column;
+  }
 }
 
 .tab {
-	background-color: rgb(180, 179, 179);
-	color: white;
+  background-color: rgb(180, 179, 179);
+  color: white;
 }
 
 .right-dash-activity-tab-item {
-	margin-right: 1rem;
-	padding: 10px;
-	text-align: center;
-	border-radius: 10px;
-	list-style: none;
-	font-size: 20px;
-	text-transform: capitalize;
-	cursor: pointer;
+  margin-right: 1rem;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  list-style: none;
+  font-size: 20px;
+  text-transform: capitalize;
+  cursor: pointer;
 }
 @media screen and (min-width: 200px) and (max-width: 560px) {
-	.right-dash-activity-tab-item {
-		margin-bottom: 1rem;
-	}
+  .right-dash-activity-tab-item {
+    margin-bottom: 1rem;
+  }
 }
 @media screen and (min-width: 560px) and (max-width: 960px) {
-	.right-dash-activity-tab-item {
-		margin-bottom: 1rem;
-	}
+  .right-dash-activity-tab-item {
+    margin-bottom: 1rem;
+  }
 }
 
 .right-dash-switchtab {
-	margin: 1rem;
-	padding: 1rem;
-	background-color: #fff;
-	border-radius: 10px;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 10px;
 }
 @media screen and (min-width: 200px) and (max-width: 560px) {
-	.right-dash-switchtab {
-		width: 100%;
-		margin-left: 0;
-	}
+  .right-dash-switchtab {
+    width: 100%;
+    margin-left: 0;
+  }
 }
 @media screen and (min-width: 560px) and (max-width: 960px) {
-	.right-dash-switchtab-wraper {
-		flex-direction: column;
-	}
+  .right-dash-switchtab-wraper {
+    flex-direction: column;
+  }
 }
 
 .right-dash-switchtab-wraper {
-	display: flex;
-	width: 100%;
-	/* align-items: center; */
-	justify-content: center;
+  display: flex;
+  width: 100%;
+  /* align-items: center; */
+  justify-content: center;
 }
 @media screen and (min-width: 200px) and (max-width: 560px) {
-	.right-dash-switchtab-wraper {
-		flex-direction: column;
-	}
+  .right-dash-switchtab-wraper {
+    flex-direction: column;
+  }
 }
 @media screen and (min-width: 560px) and (max-width: 960px) {
-	.right-dash-switchtab-wraper {
-		flex-direction: column;
-	}
+  .right-dash-switchtab-wraper {
+    flex-direction: column;
+  }
 }
 
 .right-dash-transaction-title,
 .right-dash-deposit-title {
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .right-dash-transaction-title h4,
 .right-dash-deposit-title h4 {
-	background-color: rgb(180, 179, 179);
-	padding: 1rem;
-	border-radius: 10px;
+  background-color: rgb(180, 179, 179);
+  padding: 1rem;
+  border-radius: 10px;
 }
 
 .right-dash-transaction-deposit,
 .right-dash-transaction-withdrawal,
 .right-deposit-selection,
 .right-dash-deposits-info-container {
-	margin: 1rem;
-	padding: 1rem;
-	background-color: #ccc;
-	border-radius: 10px;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: #ccc;
+  border-radius: 10px;
 }
 
 .right-dash-transaction-deposit-title,
 .right-dash-transaction-withdrawal-title {
-	padding: 10px;
-	background-color: #fff;
-	border-radius: 10px;
-	text-transform: uppercase;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  text-transform: uppercase;
 }
 
 .right-dash-transaction-deposit-info-items,
 .right-dash-transaction-withdrawal-info-items,
 .right-dash-deposit-selection-info-items,
 .right-dash-deposits-info-items {
-	padding: 10px;
-	background-color: #fff;
-	margin: 1rem 0;
-	border-radius: 10px;
+  padding: 10px;
+  background-color: #fff;
+  margin: 1rem 0;
+  border-radius: 10px;
 }
 
 .right-dash-transaction-deposit-info-items-list,
 .right-dash-transaction-withdrawal-info-items-list,
 .right-dash-deposit-selection-info-items-list,
 .right-dash-deposits-info-items-list {
-	text-align: center;
-	width: 100%;
-	margin: 10px 0 1rem 0;
-	border-bottom: 1px solid #ccc;
+  text-align: center;
+  width: 100%;
+  margin: 10px 0 1rem 0;
+  border-bottom: 1px solid #ccc;
 }
 
 .right-dash-deposit-selection-info-items-list p,
 .right-dash-deposits-info-items-list p {
-	text-transform: uppercase;
-	color: rgb(33, 46, 238);
+  text-transform: uppercase;
+  color: rgb(33, 46, 238);
 }
 
 .bg-bluish {
-	background-color: rgb(54, 61, 148);
+  background-color: rgb(54, 61, 148);
 }
 
 .center {
-	text-align: center;
+  text-align: center;
 }
 
 .content-container {
-	/* opacity: 0; */
-	display: none;
-	transition: display 500ms ease-in-out 0ms, transform 500ms ease-in-out 0ms;
-	transform: scale(0.9);
+  /* opacity: 0; */
+  display: none;
+  transition: display 500ms ease-in-out 0ms, transform 500ms ease-in-out 0ms;
+  transform: scale(0.9);
 }
 
 .active-content {
-	/* transform: scale(0.9); */
-	/* opacity: 1; */
-	display: block;
-	transition: display 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-	/* transition: all 0.5s ease-in-out; */
-	/* transform: scale(1); */
+  /* transform: scale(0.9); */
+  /* opacity: 1; */
+  display: block;
+  transition: display 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  /* transition: all 0.5s ease-in-out; */
+  /* transform: scale(1); */
 }
 
 .right-dash-deposit-grid,
 .right-dash-deposits-grid {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 @media screen and (min-width: 200px) and (max-width: 560px) {
-	.right-dash-deposit-grid,
-	.right-dash-deposits-grid {
-		grid-template-columns: auto;
-	}
+  .right-dash-deposit-grid,
+  .right-dash-deposits-grid {
+    grid-template-columns: auto;
+  }
 }
 @media screen and (min-width: 560px) and (max-width: 960px) {
-	.right-dash-deposit-grid,
-	.right-dash-deposits-grid {
-		grid-template-columns: auto;
-	}
+  .right-dash-deposit-grid,
+  .right-dash-deposits-grid {
+    grid-template-columns: auto;
+  }
 }
 
 .right-dash-deposit-sample-txt {
-	margin-top: 1rem;
-	font-size: 1.2rem;
+  margin-top: 1rem;
+  font-size: 1.2rem;
 }
 
 .right-dash-deposit-inputs {
-	display: flex;
-	width: 100%;
-	align-items: center;
-	justify-content: space-between;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .right-dash-deposit-inputs button {
-	margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 @media screen and (min-width: 200px) and (max-width: 560px) {
-	.right-dash-deposit-inputs {
-		flex-direction: column;
-	}
+  .right-dash-deposit-inputs {
+    flex-direction: column;
+  }
 }
 @media screen and (min-width: 560px) and (max-width: 960px) {
-	.right-dash-deposit-inputs {
-		/* flex-direction: column; */
-	}
+  .right-dash-deposit-inputs {
+    /* flex-direction: column; */
+  }
 }
 
 .right-dash-deposit-select {
-	width: 250px;
-	height: 3rem;
-	outline: none;
-	border: none;
-	border-radius: 10px;
-	font-size: 1.2rem;
-	background-color: rgb(133, 139, 228);
-	color: #fff;
+  width: 250px;
+  height: 3rem;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  background-color: rgb(133, 139, 228);
+  color: #fff;
 }
 
 .status-approved {
-	color: green;
-	text-transform: capitalize;
+  color: green;
+  text-transform: capitalize;
 }
 
 .status-failed {
-	text-transform: capitalize;
-	color: red;
+  text-transform: capitalize;
+  color: red;
 }
 
 .right-dash-transaction-withdrawal-info-items-list-copy-address {
-	cursor: copy;
-	padding: 10px;
-	margin: 10px 0;
-	background-color: rgb(133, 139, 228);
-	border-radius: 10px;
-	/* color: #fff; */
-	font-size: 15px;
-	display: flex;
-	justify-content: space-between;
-	word-wrap: break-word;
+  cursor: copy;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: rgb(133, 139, 228);
+  border-radius: 10px;
+  /* color: #fff; */
+  font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+  word-wrap: break-word;
 }
 @media screen and (min-width: 200px) and (max-width: 560px) {
-	.right-dash-transaction-withdrawal-info-items-list-copy-address {
-		flex-direction: column;
-	}
+  .right-dash-transaction-withdrawal-info-items-list-copy-address {
+    flex-direction: column;
+  }
 }
 
 .right-dash-transaction-withdrawal-info-items-list-copy-address small {
-	/* color: #fff; */
-	background-color: #ffff;
-	padding: 5px;
-	width: 100%;
-	border-radius: 10px;
-	margin-right: 5px;
-	font-size: 20px;
-	margin-bottom: 7px;
+  /* color: #fff; */
+  background-color: #ffff;
+  padding: 5px;
+  width: 100%;
+  border-radius: 10px;
+  margin-right: 5px;
+  font-size: 20px;
+  margin-bottom: 7px;
 }
 
 .right-dash-transaction-withdrawal-info-items-list-copy-address button {
-	cursor: copy;
-	outline: none;
-	border: 0;
-	background-color: transparent;
-	color: white;
+  cursor: copy;
+  outline: none;
+  border: 0;
+  background-color: transparent;
+  color: white;
 }
 
 .right-dash-transaction-withdrawal-info-items-list-img-wrapper {
-	display: flex;
-	justify-content: center;
-	position: relative;
+  display: flex;
+  justify-content: center;
+  position: relative;
 }
 
 .right-dash-transaction-withdrawal-info-items-list-img {
 }
 
 @media screen and (min-width: 200px) and (max-width: 560px) {
-	/* .right-dash-transaction-withdrawal-info-items-list-img-wrapper{
+  /* .right-dash-transaction-withdrawal-info-items-list-img-wrapper{
 		
 	} */
-	.right-dash-transaction-withdrawal-info-items-list-copy-address {
-		flex-direction: column;
-	}
-	.right-dash-transaction-withdrawal-info-items-list-img {
-		width: 100%;
-		object-fit: cover;
-	}
+  .right-dash-transaction-withdrawal-info-items-list-copy-address {
+    flex-direction: column;
+  }
+  .right-dash-transaction-withdrawal-info-items-list-img {
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.animate-container {
+  position: relative;
+  /* overflow: hidden; */
+}
+
+.animate-div {
+  position: absolute;
+  left: -100rem;
+  transition: 0.5s;
+  transition-property: left;
+  z-index: 5;
+  bottom: 5rem;
+  width: 90%;
+}
+
+.animate-in .animate-div {
+  left: 20px;
 }
