@@ -167,6 +167,9 @@ const Dashboard = () => {
   const addressRef = useRef();
   const { userId } = useParams();
 
+  // const trimName = fullName.trim();
+  // console.log(trimName);
+
   useEffect(() => {
     DB.collection("usersInvestment")
       .doc(userId)
@@ -211,7 +214,6 @@ const Dashboard = () => {
     setFetchedCoin(allCoins.data);
   };
 
-  const localDB = JSON.parse(localStorage.getItem(username || fullName));
   useEffect(() => {
     fetchCoin();
   }, []);
@@ -236,6 +238,7 @@ const Dashboard = () => {
   const getUserLocationFn = async () => {
     const res = await axios.get(geoApiLink);
     setGetUserLocation(res.data);
+    console.log(res.data);
   };
 
   useEffect(() => {
@@ -256,6 +259,7 @@ const Dashboard = () => {
     depositArr.map((item) => item.amount)
   );
 
+
   const userProfit = depositArr.map((itm) => {
     const { amount, percentage } = itm;
     return Number(amount) * Number(percentage);
@@ -266,26 +270,8 @@ const Dashboard = () => {
     return Number(str1) + Number(str2);
   };
 
-  const existCoin = (nextCoin) => {
-    return localDB.filter((coin) => coin.coinName === nextCoin);
-  };
-
-  const addUserCoinToLocalDB = (nextCoinItem) => {
-    const coinIncrements = localDB.map((i) => i.qty).toString();
-    const coinExists = existCoin(selectedCoin);
-    if (coinExists) {
-      return localDB.map((coinItem) =>
-        coinItem.coinName == nextCoinItem.coinName
-          ? { ...coinItem, qty: coinItem.qty + coinIncrements }
-          : coinItem
-      );
-    }
-
-    return [...localDB, { ...nextCoinItem, qty: coinIncrements }];
-  };
-
   const nextCoinItem = {
-    userName: username || fullName,
+    userName: fullName,
     userId,
     coinName: selectedCoin,
     qty: userAmountToCoin,
@@ -294,11 +280,25 @@ const Dashboard = () => {
     date: currentDate,
   };
 
+  // const addUserCoinToLocalDB = (nextCoinItem) => {
+  //   const coinIncrements = localDB.map((i) => i.qty).toString();
+  //   const coinExists = existCoin(selectedCoin);
+  //   if (coinExists) {
+  //     return localDB.map((coinItem) =>
+  //       coinItem.coinName == nextCoinItem.coinName
+  //         ? { ...coinItem, qty: coinItem.qty + coinIncrements }
+  //         : coinItem
+  //     );
+  //   }
+
+  //   return [...localDB, { ...nextCoinItem, qty: coinIncrements }];
+  // };
+
   const transactionObj = () => {
     const coinExists = existingCoin(selectedCoin);
-
-    const coinDataId = coinExists.map((i) => i.coinId);
-
+    console.log(coinExists);
+    const coinDataId = coinExists.map((i) => i.coinId).toLocaleString();
+    console.log(coinDataId);
     DB.collection("usersInvestment")
       .doc(userId)
       .update({
@@ -309,58 +309,53 @@ const Dashboard = () => {
           userInvestment.activeAmount,
           depositArr.map((item) => item.amount).toString()
         ),
+        activeDeposit: depositArr.map((item) => item.amount).toString(),
         date: currentDate,
       });
 
-    if (coinExists) {
+    if (coinDataId) {
       coinExists.map((coinItem) => {
         DB.collection("usersInvestment")
           .doc(userId)
           .collection("coins")
-          .doc(coinDataId.join(" "))
+          .doc(coinDataId)
           .set({
-            ...coinItem,
+            coinName: coinItem.coinName,
             qty: sum(coinItem.qty, userAmountToCoin),
           });
       });
-    }
-
-    DB.collection("usersInvestment")
-      .doc(userId)
-      .collection("coins")
-      .doc()
-      .set({
-        coinName: selectedCoin,
-        qty: Number(userAmountToCoin),
-      });
-
-    // return userInvestmentCoins.map((coinItem) =>
-    //   coinItem.name == selectedCoin
-    //     ? {
-    //         ...coinItem,
-    //         qty: Number(coinItem.qty) + Number(userAmountToCoin),
-    //       }
-    //     : coinItem
-    // );
-    // } else {
-    //   return {
-    //     // ...userInvestments.coins,
-    //     ...nextCoinItem,
-    //   };
-    // }
+    } else
+      DB.collection("usersInvestment")
+        .doc(userId)
+        .collection("coins")
+        .doc()
+        .set({
+          coinName: selectedCoin,
+          qty: Number(userAmountToCoin),
+        });
   };
+
+  // return userInvestmentCoins.map((coinItem) =>
+  //   coinItem.name == selectedCoin
+  //     ? {
+  //         ...coinItem,
+  //         qty: Number(coinItem.qty) + Number(userAmountToCoin),
+  //       }
+  //     : coinItem
+  // );
+  // } else {
+  //   return {
+  //     // ...userInvestments.coins,
+  //     ...nextCoinItem,
+  //   };
+  // }
 
   const confirmTransaction = async () => {
     seTtransactionReceivedAnimation(true);
-    // transactionObj();
-    localStorage.setItem(
-      username || fullName,
-      JSON.stringify(addUserCoinToLocalDB(nextCoinItem))
-    );
+    transactionObj();
     setTimeout(() => {
       window.location.reload();
     }, 10000);
-    // console.log(obj);
     // DB.collection("usersInvestment").doc(userId).set(obj);
   };
 
@@ -479,11 +474,15 @@ const Dashboard = () => {
                       <div className="right-dash-transaction-deposit-info-items">
                         <div className="right-dash-transaction-deposit-info-items-list">
                           <p>Total Deposits</p>
-                          <small>$00.000</small>
+                          <small>
+                            {formatAmount(Number(userInvestment.activeAmount))}
+                          </small>
                         </div>
                         <div className="right-dash-transaction-deposit-info-items-list">
                           <p>Active Deposits</p>
-                          <small>$00.000</small>
+                          <small>
+                            {formatAmount(Number(userInvestment.activeDeposit))}
+                          </small>
                         </div>
                         <div className="right-dash-transaction-deposit-info-items-list">
                           <p>Last Deposits</p>

@@ -4,6 +4,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signOutUserStart } from "../../../redux/user/user.actions";
+import DB, {auth} from '../../../firebase/functions'
 
 const mapState = ({ user }) => ({
 	currentUser: user.currentUser,
@@ -16,6 +17,15 @@ const Nav = () => {
 	const logoutUser = () => {
 		dispatch(signOutUserStart());
 	};
+	
+	const deleteUser = ()=>{
+		DB.collection('users').doc(currentUser.id).delete().then(() => {
+			auth.currentUser.delete().then(() => {
+				dispatch(signOutUserStart());
+			})
+		})
+		
+	}
 	return (
 		<div className={`nav ${toggle ? "active" : ""}`}>
 			{currentUser?.userRoles?.includes("admin") && (
@@ -42,10 +52,15 @@ const Nav = () => {
 							Login
 						</Link>
 					)}
-					{currentUser ? (
-						<div className="register" onClick={logoutUser}>
+					{currentUser ? (<>
+						<div className="register" onClick={logoutUser} style={{marginRight: "5px", marginBottom: '5px' }}>
 							<li className="nav-lis ">Logout</li>
 						</div>
+						
+						<div className="register" onClick={deleteUser}>
+						<li className="nav-lis ">Delete Account</li>
+					</div>
+					</>
 					) : (
 						<Link to="/signup" className="register">
 							<li className="nav-lis ">Get Started</li>
