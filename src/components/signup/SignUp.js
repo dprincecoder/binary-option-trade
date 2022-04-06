@@ -16,6 +16,10 @@ import {
 	userSuccessStart,
 } from "../../redux/user/user.actions";
 import { NavigateNextTwoTone } from "@mui/icons-material";
+// import { getUserLocationFn } from "../../helpers/fetchLocation";
+import  axios from "axios";
+
+
 
 const mapState = ({ user }) => ({
 	currentUser: user.currentUser,
@@ -31,9 +35,17 @@ const SignUp = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [getLocal, setGetLocal] = useState({});
 	const [checked, setChecked] = useState(false);
 
+const geoApiLink = "https://geolocation-db.com/json/";
+ const getUserLocationFn = async () => {
+  const res = await axios.get(geoApiLink);
+  setGetLocal(res.data);
+};
+
 	useEffect(() => {
+		getUserLocationFn();
 		if (currentUser) {
 			navigate("/");
 		}
@@ -42,6 +54,8 @@ const SignUp = () => {
 	useEffect(() => {
 		return () => dispatch(userErrorStart({}));
 	}, []);
+
+
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -54,6 +68,7 @@ const SignUp = () => {
 				email,
 				password,
 				confirmPassword,
+				ipAddress: getLocal.IPv4, location: getLocal.country_name
 			})
 		);
 	};
@@ -71,7 +86,7 @@ const SignUp = () => {
 			<div className="signup-grid">
 				<div className="signup-left">
 					<p>Great! Let's start your Adventure!</p>
-					<h1>Access binaryoptionstrade.com</h1>
+					<h1 className='access'>Access binaryoptionstrade.org</h1>
 					<div className="signup-left-options">
 						<div className="signup-left-icon">
 							<CheckCircleIcon />
@@ -119,7 +134,7 @@ const SignUp = () => {
 							))}
 						</>
 					)}
-					<form onSubmit={handleSubmit}>
+					<form onSubmit={handleSubmit} className='signup-form'>
 						<div className="signup-right-top">
 							<h2 className="signup-details">General Details</h2>
 							<div className="signup-right-top-container">

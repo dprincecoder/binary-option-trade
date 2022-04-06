@@ -35,12 +35,12 @@ const Header = () => {
 					<h1>Cryptocurrency Investment Platform</h1>
 					<p>
 						Invest in a Bundle of the top cryptocurrencies, Bitcoin, Ethereum
-						and more. <b>Binaryoptiontrading.com</b> is one of the stop roof for
+						and more. <b>binaryoptiontrading.org</b> is one of the stop roof for
 						investors who which to create passive income in crypto markets
 						without exposing towards any master skills. At{" "}
-						<b>Binaryoptiontrading.com</b> we trust in keeping things simple,
+						<b>binaryoptiontrading.org</b> we trust in keeping things simple,
 						steady, and transparent. Experience the best at{" "}
-						<b>binaryoptiontrade.com</b> and thank us later.
+						<b>binaryoptiontrade.org</b> and thank us later.
 					</p>
 					<div className="hero-left-details">
 						{!currentUser && (

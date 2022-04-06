@@ -165,13 +165,7 @@ const AdminManagement = () => {
                       </div>
                     </div>
                   </div> */}
-                  <div className="delete-warn">
-                    <p>
-                      Sorry! You can't directly delete this user here, first
-                      login in with this user details then you can delete this
-                      user, and all it's Data.
-                    </p>
-                  </div>
+                  
                   <div className="usermore-action-delete-btn">
                     <ButtonHandler
                       text="Delete User"
@@ -183,6 +177,13 @@ const AdminManagement = () => {
                 </div>
               );
             })}
+          <div className="delete-warn">
+                    <p>
+                      Sorry! You can't directly delete this user here, first
+                      login in with this user details then you can delete this
+                      user, and all it's Data.
+                    </p>
+                  </div>
           </div>
         </div>
       </div>

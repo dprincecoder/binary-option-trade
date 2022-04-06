@@ -2,7 +2,6 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { firebaseConfig } from "./config";
-import axios from "axios";
 
 //initialize firebaseConfig
 const firebaseApp = firebase.initializeApp(firebaseConfig);
@@ -16,12 +15,7 @@ const auth = firebaseApp.auth();
 //firebase google auth provider
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
-//creating function to load ip address from the API
-const geoApiLink = "https://geolocation-db.com/json/";
-const getUserLocationFn = async () => {
-  const res = await axios.get(geoApiLink);
-  return res.data
-};
+
 
 //handle user profile
 const handleUserProfile = async ({ userAuth, additionalData }) => {
@@ -30,13 +24,13 @@ const handleUserProfile = async ({ userAuth, additionalData }) => {
   const { uid } = userAuth;
 
   const userRef = DB.doc(`users/${uid}`);
+    const DBref = DB.doc(`usersInvestment/${uid}`)
 
   const snapShot = await userRef.get();
 
   if (!snapShot.exists) {
     const { username, displayName, fullName, email } = userAuth;
-    const createdAt = new Date();
-    const localtionDetails = getUserLocationFn();
+    const createdAt = new Date().toISOString();
     try {
       await userRef.set({
         username: username || "",
@@ -45,9 +39,15 @@ const handleUserProfile = async ({ userAuth, additionalData }) => {
         userRoles: ["user"],
         createdAt,
         userId: uid,
-        ipAddress: localtionDetails.IPv4,
-        location: localtionDetails.country_name,
         ...additionalData,
+      }).then(() => {
+        DBref.set({
+          activeAmount: "00000",
+          activeDeposit: '00000',
+          activeProfit: "00000",
+          date: createdAt,
+          username: username || ''
+        })
       });
     } catch (err) {
       console.log("Error creating user", err.message);

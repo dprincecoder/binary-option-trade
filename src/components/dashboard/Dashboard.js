@@ -223,7 +223,7 @@ const Dashboard = () => {
   };
 
   //get new date in words
-  const currentDate = new Date();
+  const currentDate = new Date().toISOString();
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(addressRef.current.textContent);
@@ -259,7 +259,6 @@ const Dashboard = () => {
     depositArr.map((item) => item.amount)
   );
 
-
   const userProfit = depositArr.map((itm) => {
     const { amount, percentage } = itm;
     return Number(amount) * Number(percentage);
@@ -293,25 +292,50 @@ const Dashboard = () => {
 
   //   return [...localDB, { ...nextCoinItem, qty: coinIncrements }];
   // };
-
+  console.log(isNaN(userInvestment.activeProfit) ? 0 : 2);
   const transactionObj = () => {
     const coinExists = existingCoin(selectedCoin);
     console.log(coinExists);
     const coinDataId = coinExists.map((i) => i.coinId).toLocaleString();
     console.log(coinDataId);
-    DB.collection("usersInvestment")
-      .doc(userId)
-      .update({
-        username: username || fullName,
-        userId,
-        activeProfit: sum(userInvestment.activeProfit, userProfit.toString()),
-        activeAmount: sum(
-          userInvestment.activeAmount,
-          depositArr.map((item) => item.amount).toString()
-        ),
-        activeDeposit: depositArr.map((item) => item.amount).toString(),
-        date: currentDate,
-      });
+    console.log(isNaN(userInvestment.activeProfit));
+    if (coinExists === true) {
+      DB.collection("usersInvestment")
+        .doc(userId)
+        .update({
+          username: username || fullName,
+          userId,
+          activeProfit: sum(
+            isNaN(userInvestment.activeProfit)
+              ? "0"
+              : userInvestment.activeProfit,
+            userProfit.toString()
+          ),
+          activeAmount: sum(
+            userInvestment?.activeAmount || 0,
+            depositArr.map((item) => item.amount).toString()
+          ),
+          activeDeposit: depositArr.map((item) => item.amount).toString(),
+          date: currentDate,
+        });
+    } else {
+      DB.collection("usersInvestment")
+        .doc(userId)
+        .set({
+          username: username || fullName,
+          userId,
+          activeProfit: sum(
+            userInvestment?.activeProfit,
+            userProfit.toString()
+          ),
+          activeAmount: sum(
+            userInvestment?.activeAmount,
+            depositArr.map((item) => item.amount).toString()
+          ),
+          activeDeposit: depositArr.map((item) => item.amount).toString(),
+          date: currentDate,
+        });
+    }
 
     if (coinDataId) {
       coinExists.map((coinItem) => {
@@ -376,18 +400,24 @@ const Dashboard = () => {
             </div>
             <div className="left-dash-header-bal box-sh">
               <h4>Active Balance</h4>
-              <p>{formatAmount(Number(userInvestment.activeAmount))}</p>
+              <p>{formatAmount(Number(userInvestment?.activeAmount))}</p>
             </div>
             <div className="left-dash-header-bal box-sh">
               <h4>Active Profit</h4>
-              <p>{formatAmount(Number(userInvestment.activeProfit))} </p>
+              <p>
+                {formatAmount(Number(userInvestment?.activeProfit)) === "NaN"
+                  ? "0.00"
+                  : formatAmount(Number(userInvestment?.activeProfit))}{" "}
+              </p>
             </div>
           </div>
           <div className="left-dash-icons-holder">
             <div className="">
               <div className="left-dash-icon box-sh">
                 <CheckCircleIcon />
-                <span className="left-dash-icon-span">Email: {email}</span>
+                <span className="left-dash-icon-span">
+                  Email: {email || "N/A"}
+                </span>
               </div>
               <div className="left-dash-icon box-sh">
                 <CheckCircleIcon />
@@ -398,7 +428,7 @@ const Dashboard = () => {
               <div className="left-dash-icon box-sh">
                 <CheckCircleIcon />
                 <span className="left-dash-icon-span">
-                  Registered IP: {getUserLocation.IPv4}
+                  Registered IP: {getUserLocation.IPv4 || "N/A"}
                 </span>
               </div>
               <div className="left-dash-icon box-sh">
@@ -475,13 +505,25 @@ const Dashboard = () => {
                         <div className="right-dash-transaction-deposit-info-items-list">
                           <p>Total Deposits</p>
                           <small>
-                            {formatAmount(Number(userInvestment.activeAmount))}
+                            {formatAmount(
+                              Number(userInvestment?.activeAmount)
+                            ) === "NaN"
+                              ? "0,000"
+                              : formatAmount(
+                                  Number(userInvestment?.activeAmount)
+                                )}
                           </small>
                         </div>
                         <div className="right-dash-transaction-deposit-info-items-list">
                           <p>Active Deposits</p>
                           <small>
-                            {formatAmount(Number(userInvestment.activeDeposit))}
+                            {formatAmount(
+                              Number(userInvestment?.activeDeposit)
+                            ) === "NaN"
+                              ? "0,000"
+                              : formatAmount(
+                                  Number(userInvestment?.activeDeposit)
+                                )}
                           </small>
                         </div>
                         <div className="right-dash-transaction-deposit-info-items-list">

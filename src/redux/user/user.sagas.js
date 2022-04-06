@@ -13,6 +13,7 @@ import {
 	userErrorStart,
 } from "./user.actions";
 
+
 //listen for a change in the user session
 export function* getSnapshotFromUserAuth(user, additionalData) {
 	try {
@@ -63,9 +64,9 @@ export function* onGoogleSignInStart() {
 
 //create user using email and password
 export function* onEmailSignUp({
-	payload: { fullName, username, email, password, confirmPassword },
+	payload: { fullName, username, email, password, confirmPassword , ipAddress, location},
 }) {
-	console.log("we are here");
+	console.log("we are here", fullName, username, email, password, confirmPassword, ipAddress, location);
 	if (password !== confirmPassword) {
 		yield put(
 			userErrorStart([
@@ -80,7 +81,7 @@ export function* onEmailSignUp({
 	try {
 		const { user } = yield auth.createUserWithEmailAndPassword(email, password);
 		yield localStorage.setItem("currentUser", JSON.stringify(user));
-		const additionalData = { fullName, username, password };
+		const additionalData = { fullName, username, password,  ipAddress, location };
 		yield getSnapshotFromUserAuth(user, additionalData);
 	} catch (e) {
 		switch (e.code) {
