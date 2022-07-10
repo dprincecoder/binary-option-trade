@@ -16,8 +16,10 @@ import { formatCoin } from "../../helpers/formatCoin";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonHandler from "../../helpers/forms/button/ButtonHandler";
 import { useParams } from "react-router-dom";
-import DB from "../../firebase/functions";
-import { Alert, AlertTitle } from "@mui/material";
+import DB, { storage } from "../../firebase/functions";
+import { Alert, AlertTitle, Fab, Box, Typography, Modal } from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { CircularSpiner } from "../loader/Circuler";
 const activityTabs = [
   {
     id: 1,
@@ -149,11 +151,8 @@ const Dashboard = () => {
   const { fullName, username, email, createdAt } = currentUser;
   const [fetchedCoin, setFetchedCoin] = useState([]);
   const [toggleTabs, setToggleTabs] = useState(2);
-  const [tradingMinRate, setTradingMinRate] = useState(0);
-  const [tradingMaxRate, setTradingMaxRate] = useState(0);
+  const [openModal, setOpenModal] = useState(false);
   const [activeDeposit, setActiveDeposit] = useState(false);
-
-  const [miningMinRate, setMiningMinRate] = useState(200);
   const [selectedCoin, setSelectedCoin] = useState("btc");
   const [amount, setAmount] = useState(0);
   const [planValues, setPlanValues] = useState({});
@@ -162,13 +161,12 @@ const Dashboard = () => {
   const [getUserLocation, setGetUserLocation] = useState({});
   const [userInvestment, setUserInvestment] = useState({});
   const [userInvestmentCoins, setUserInvestmentCoins] = useState([]);
+  const [imageUpload, setImageUpload] = useState(null);
+  const [progress, setProgress] = useState(0);
   const [transactionReceivedAnimation, seTtransactionReceivedAnimation] =
     useState(false);
   const addressRef = useRef();
   const { userId } = useParams();
-
-  // const trimName = fullName.trim();
-  // console.log(trimName);
 
   useEffect(() => {
     DB.collection("usersInvestment")
@@ -191,7 +189,6 @@ const Dashboard = () => {
     const obj = { from, to, percentage, id, title };
     setPlanValues(obj);
     const newArr = [{ from, to, percentage, id, title, amount, selectedCoin }];
-
     setDepositArr(newArr);
     return newArr;
   };
@@ -208,7 +205,6 @@ const Dashboard = () => {
     getSelectedPlan(from, to, percentage, id, title);
   };
 
-  // console.log(coinsData);
   const fetchCoin = async () => {
     const allCoins = await axios.get(coinLink);
     setFetchedCoin(allCoins.data);
@@ -217,6 +213,7 @@ const Dashboard = () => {
   useEffect(() => {
     fetchCoin();
   }, []);
+
   //get specific coin by symbol
   const getCoinAmount = (symbol) => {
     return fetchedCoin.filter((coin) => coin.symbol === symbol);
@@ -269,15 +266,15 @@ const Dashboard = () => {
     return Number(str1) + Number(str2);
   };
 
-  const nextCoinItem = {
-    userName: fullName,
-    userId,
-    coinName: selectedCoin,
-    qty: userAmountToCoin,
-    activeAmount: depositArr.map((item) => item.amount).toString(),
-    activeProfit: userProfit.toString(),
-    date: currentDate,
-  };
+  // const nextCoinItem = {
+  //   userName: fullName,
+  //   userId,
+  //   coinName: selectedCoin,
+  //   qty: userAmountToCoin,
+  //   activeAmount: depositArr.map((item) => item.amount).toString(),
+  //   activeProfit: userProfit.toString(),
+  //   date: currentDate,
+  // };
 
   // const addUserCoinToLocalDB = (nextCoinItem) => {
   //   const coinIncrements = localDB.map((i) => i.qty).toString();
@@ -292,13 +289,10 @@ const Dashboard = () => {
 
   //   return [...localDB, { ...nextCoinItem, qty: coinIncrements }];
   // };
-  console.log(isNaN(userInvestment.activeProfit) ? 0 : 2);
-  const transactionObj = () => {
+
+  const transactionObj = (url) => {
     const coinExists = existingCoin(selectedCoin);
-    console.log(coinExists);
     const coinDataId = coinExists.map((i) => i.coinId).toLocaleString();
-    console.log(coinDataId);
-    console.log(isNaN(userInvestment.activeProfit));
     if (coinExists === true) {
       DB.collection("usersInvestment")
         .doc(userId)
@@ -316,6 +310,7 @@ const Dashboard = () => {
             depositArr.map((item) => item.amount).toString()
           ),
           activeDeposit: depositArr.map((item) => item.amount).toString(),
+          hash: url,
           date: currentDate,
         });
     } else {
@@ -333,6 +328,7 @@ const Dashboard = () => {
             depositArr.map((item) => item.amount).toString()
           ),
           activeDeposit: depositArr.map((item) => item.amount).toString(),
+          hash: url,
           date: currentDate,
         });
     }
@@ -346,6 +342,7 @@ const Dashboard = () => {
           .set({
             coinName: coinItem.coinName,
             qty: sum(coinItem.qty, userAmountToCoin),
+            hash: url,
           });
       });
     } else
@@ -356,6 +353,7 @@ const Dashboard = () => {
         .set({
           coinName: selectedCoin,
           qty: Number(userAmountToCoin),
+          hash: url,
         });
   };
 
@@ -374,23 +372,68 @@ const Dashboard = () => {
   //   };
   // }
 
-  const confirmTransaction = async () => {
+  const confirmTransaction = async (url) => {
     seTtransactionReceivedAnimation(true);
-    transactionObj();
+    transactionObj(url);
     setTimeout(() => {
       window.location.reload();
     }, 10000);
-    // DB.collection("usersInvestment").doc(userId).set(obj);
+  };
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 350,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: 5,
+  };
+
+  const upload = () => {
+    const uploadTask = storage
+      .ref(`depositImages/${imageUpload.name}`)
+      .put(imageUpload);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      },
+      (err) => {
+        console.log(err);
+      },
+      async () => {
+        await storage
+          .ref("depositImages")
+          .child(imageUpload.name)
+          .getDownloadURL()
+          .then((firebaseUrl) => {
+            confirmTransaction(firebaseUrl);
+          });
+      }
+    );
   };
 
   return (
-    <div
-      className={`dashboard ${
-        transactionReceivedAnimation ? "animate-in" : "animate-out"
-      }`}
-    >
+    <div className={`dashboard `}>
       <Nav />
-      <div className="dashboard-container">
+      {!fullName && (
+        <div className="signup-animation">
+          <div className="animate-bg">
+            <div className="hold">
+              <h3>
+                LOADING<small style={{ color: "red" }}>...</small>
+              </h3>
+
+              <CircularSpiner color="success" />
+            </div>
+          </div>
+        </div>
+      )}
+      <div className={`dashboard-container ${!fullName ? "backdrop" : ""}`}>
         <div className="left-dash">
           <div className="left-dash-header">
             <div className="left-dash-header-name box-sh">
@@ -851,6 +894,91 @@ const Dashboard = () => {
                 activeDeposit ? "active-content" : "content-container"
               }`}
             >
+              <Modal
+                open={openModal}
+                // onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    // component="p"
+                  >
+                    Upload your deposit screenshot or hash for verification.
+                  </Typography>
+                  <div className="upload" style={{ position: "relative" }}>
+                    <label htmlFor="upload-photo" className="btn">
+                      <input
+                        type="file"
+                        style={{ display: "none" }}
+                        id="upload-photo"
+                        name="upload-photo"
+                        accept="image/jpg, image/png, image/jpeg"
+                        onChange={(e) => setImageUpload(e.target.files[0])}
+                      />
+                      <Fab
+                        color="secondary"
+                        size="small"
+                        component="span"
+                        aria-label="add"
+                        variant="extended"
+                      >
+                        <AddCircleIcon /> Select photo
+                      </Fab>
+                    </label>
+                    <div className="img-holder">
+                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        {imageUpload && (
+                          <img
+                            src={URL.createObjectURL(imageUpload)}
+                            alt=""
+                            className="responsive-img"
+                          />
+                        )}
+                        {progress > 0 && (
+                          <progress value={progress} id="uploader" max="100" />
+                        )}
+                      </Typography>
+                    </div>
+                    {imageUpload && (
+                      <div className="upload-btn">
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                          <ButtonHandler
+                            text="Upload"
+                            variant="contained"
+                            handleClick={upload}
+                          />{" "}
+                          <br />
+                          for verification and proccessing.
+                        </Typography>
+
+                        <Alert
+                          severity="success"
+                          className={`animate-div ${
+                            transactionReceivedAnimation ? "animate-in" : ""
+                          }`}
+                        >
+                          <AlertTitle>Transaction Received</AlertTitle>
+                          We have received your transaction request, we will
+                          process it within 7 business days. Mean while your
+                          transactions will be displayed in your dashboard while
+                          we process your Profit!
+                        </Alert>
+                        {/* <div className="right-dash-transaction-withdrawal-info-items-list-copy-addrss animate-container">
+                        </div> */}
+                      </div>
+                    )}
+                    {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                      <ButtonHandler
+                        text="Confirm Transaction"
+                        variant="contained"
+                      />
+                    </Typography> */}
+                  </div>
+                </Box>
+              </Modal>
               <div className="right-dash-transaction-title">
                 <h4>Confirm Deposit</h4>
                 <div className=""></div>
@@ -980,22 +1108,12 @@ const Dashboard = () => {
                 />
 
                 <ButtonHandler
-                  text="Confirm Transaction"
+                  text="Done"
                   themeColor="success"
                   variant="contained"
-                  onClick={confirmTransaction}
+                  onClick={() => setOpenModal(true)}
                 />
               </div>
-              {
-                <div className="right-dash-transaction-withdrawal-info-items-list-copy-addrss animate-container">
-                  <Alert severity="success" className="animate-div">
-                    <AlertTitle>Transaction Received</AlertTitle>
-                    We have received your transaction request, we will process
-                    it within 7 business days. Mean while your transactions will
-                    be displayed in your dashboard while we process it!
-                  </Alert>
-                </div>
-              }
             </div>
           </div>
         </div>

@@ -15,6 +15,7 @@ import {
   userSuccessStart,
 } from "../../redux/user/user.actions";
 import axios from "axios";
+import { CircularSpiner } from "../loader/Circuler";
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
   userError: user.userError,
@@ -28,6 +29,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
   const [getLocal, setGetLocal] = useState({});
+  const [signinAnim, setSigninAnim] = useState(false);
 
   const geoApiLink = "https://geolocation-db.com/json/";
   const getUserLocationFn = async () => {
@@ -52,7 +54,10 @@ const SignIn = () => {
   useEffect(() => {
     getUserLocationFn();
     if (currentUser) {
-      navigate("/");
+      setSigninAnim(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 5000);
     }
   }, [currentUser, navigate]);
 
@@ -69,7 +74,20 @@ const SignIn = () => {
   return (
     <div className="signin">
       <Nav />
-      <div className="signin-grid">
+      {signinAnim && (
+        <div className="signup-animation">
+          <div className="animate-bg">
+            <div className="hold">
+              <h3>
+                LOGIN <small style={{ color: "green" }}>SUCCESS</small>
+              </h3>
+              <p>redirecting...</p>
+              <CircularSpiner color="success" />
+            </div>
+          </div>
+        </div>
+      )}
+      <div className={`signin-grid ${signinAnim ? "backdrop" : ""}`}>
         <div className="signin-left">
           <p>Unleash your investing potential!</p>
           <h1 className="access">Access binaryoptionstrade.org</h1>
@@ -120,7 +138,7 @@ const SignIn = () => {
               ))}
             </>
           )}
-          <form onSubmit={handleSubmit} className='signin-form'>
+          <form onSubmit={handleSubmit} className="signin-form">
             <div className="signin-right-top">
               <h2 className="signin-details">Login Details</h2>
               <div className="signin-right-top-container">
@@ -144,11 +162,17 @@ const SignIn = () => {
               onCheck={() => setChecked(!checked)}
             />
             <div className="signin-btn">
-              <ButtonHandler text="Login" variant="contained" type="submit" />
+              <ButtonHandler
+                text="Login"
+                variant="contained"
+                type="submit"
+               
+              />
               <ButtonHandler
                 text="Login with Google"
                 variant="standard"
                 onClick={signInWithGoogle}
+               
               />
             </div>
           </form>

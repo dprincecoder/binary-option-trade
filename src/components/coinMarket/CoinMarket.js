@@ -16,7 +16,6 @@ const CoinMarket = () => {
 			})
 			.catch((err) => console.log(err));
 	}, []);
-	console.log(coins);
 	return (
 		<div className="coin-market">
 			{coins.map((item) => (

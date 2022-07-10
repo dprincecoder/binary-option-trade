@@ -36,7 +36,8 @@
 
 .left-dash-header,
 .left-dash-assets,
-.left-dash-icons-holder {
+.left-dash-icons-holder,
+.upload {
   background-color: #fff;
   margin: 1rem;
   padding: 1rem;
@@ -377,10 +378,19 @@
   color: white;
 }
 
-.right-dash-transaction-withdrawal-info-items-list-img-wrapper {
+.right-dash-transaction-withdrawal-info-items-list-img-wrapper,
+.img-holder {
   display: flex;
   justify-content: center;
   position: relative;
+}
+
+.img-holder {
+}
+
+.responsive-img {
+  width: 100%;
+  object-fit: cover;
 }
 
 .right-dash-transaction-withdrawal-info-items-list-img {
@@ -393,27 +403,30 @@
   .right-dash-transaction-withdrawal-info-items-list-copy-address {
     flex-direction: column;
   }
-  .right-dash-transaction-withdrawal-info-items-list-img {
+  .right-dash-transaction-withdrawal-info-items-list-img,
+  .responsive-img {
     width: 100%;
     object-fit: cover;
   }
 }
 
 .animate-container {
-  position: relative;
+  /* position: relative; */
   /* overflow: hidden; */
+  /* width: 90%; */
 }
 
 .animate-div {
   position: absolute;
-  left: -100rem;
-  transition: 0.5s;
-  transition-property: left;
-  z-index: 5;
-  bottom: 5rem;
-  width: 90%;
+  top: 5px;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
 }
 
-.animate-in .animate-div {
-  left: 20px;
+.animate-in.animate-div {
+  opacity: 1;
 }

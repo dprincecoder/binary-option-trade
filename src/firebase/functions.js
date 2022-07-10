@@ -1,6 +1,8 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import "firebase/compat/storage";
+
 import { firebaseConfig } from "./config";
 
 //initialize firebaseConfig
@@ -15,7 +17,8 @@ const auth = firebaseApp.auth();
 //firebase google auth provider
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
-
+//firebase storage
+const storage = firebaseApp.storage();
 
 //handle user profile
 const handleUserProfile = async ({ userAuth, additionalData }) => {
@@ -24,7 +27,7 @@ const handleUserProfile = async ({ userAuth, additionalData }) => {
   const { uid } = userAuth;
 
   const userRef = DB.doc(`users/${uid}`);
-    const DBref = DB.doc(`usersInvestment/${uid}`)
+  const DBref = DB.doc(`usersInvestment/${uid}`);
 
   const snapShot = await userRef.get();
 
@@ -32,23 +35,26 @@ const handleUserProfile = async ({ userAuth, additionalData }) => {
     const { username, displayName, fullName, email } = userAuth;
     const createdAt = new Date().toISOString();
     try {
-      await userRef.set({
-        username: username || "",
-        fullName: fullName || displayName || "",
-        email,
-        userRoles: ["user"],
-        createdAt,
-        userId: uid,
-        ...additionalData,
-      }).then(() => {
-        DBref.set({
-          activeAmount: "00000",
-          activeDeposit: '00000',
-          activeProfit: "00000",
-          date: createdAt,
-          username: username || ''
+      await userRef
+        .set({
+          username: username || "",
+          fullName: fullName || displayName || "",
+          email,
+          userRoles: ["user"],
+          createdAt,
+          userId: uid,
+          ...additionalData,
         })
-      });
+        .then(() => {
+          DBref.set({
+            activeAmount: "00000",
+            activeDeposit: "00000",
+            activeProfit: "00000",
+            date: createdAt,
+            username: username || "",
+            hash: "",
+          });
+        });
     } catch (err) {
       console.log("Error creating user", err.message);
     }
@@ -67,5 +73,5 @@ const getCurrentUser = () => {
 };
 
 //export firebase utils
-export { auth, googleAuthProvider, handleUserProfile, getCurrentUser };
+export { auth, googleAuthProvider, handleUserProfile, getCurrentUser, storage };
 export default DB;

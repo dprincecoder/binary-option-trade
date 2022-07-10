@@ -4,3 +4,4 @@ export { default as SigninPage } from "./SigninPage";
 export { default as DashboardPage } from "./DashboardPage";
 export { default as PageNotFound } from "./404Page";
 export { default as AdminPage } from "./AdminPage";
+export { default as ErrorPage } from "./ErrorPage"
