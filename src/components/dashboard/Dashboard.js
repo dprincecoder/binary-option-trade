@@ -165,6 +165,7 @@ const Dashboard = () => {
   const [progress, setProgress] = useState(0);
   const [transactionReceivedAnimation, seTtransactionReceivedAnimation] =
     useState(false);
+  const [withdrawalLoading, setWithdrawalLoading] = useState(false);
   const addressRef = useRef();
   const { userId } = useParams();
 
@@ -243,7 +244,7 @@ const Dashboard = () => {
   }, []);
 
   const withdrawEarnings = async () => {
-    setActiveDeposit(!activeDeposit);
+    setWithdrawalLoading(true);
   };
 
   //function to check for already exist coin
@@ -433,8 +434,25 @@ const Dashboard = () => {
           </div>
         </div>
       )}
-      <div className={`dashboard-container ${!fullName ? "backdrop" : ""}`}>
-        <div className="left-dash">
+      {withdrawalLoading && (
+        <div className="signup-animation">
+          <div className="animate-bg">
+            <div className="hold">
+              <h3>
+                Withdrawal in progress
+                <small style={{ color: "red" }}>...</small>
+              </h3>
+              <CircularSpiner color="success" />
+            </div>
+          </div>
+        </div>
+      )}
+      <div
+        className={`dashboard-container ${!fullName ? "backdrop" : ""} ${
+          withdrawalLoading ? "backdrop" : ""
+        }`}
+      >
+        <div className={`left-dash `}>
           <div className="left-dash-header">
             <div className="left-dash-header-name box-sh">
               <h1>
