@@ -132,6 +132,12 @@
     top: 15rem;
   }
 }
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 
 .hold {
   opacity: 0.6;

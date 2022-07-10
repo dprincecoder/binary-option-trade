@@ -442,7 +442,9 @@ const Dashboard = () => {
                 Withdrawal in progress
                 <small style={{ color: "red" }}>...</small>
               </h3>
-              <CircularSpiner color="success" />
+              <div className="center">
+                <CircularSpiner color="success" />
+              </div>
             </div>
           </div>
         </div>

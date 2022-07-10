@@ -93,7 +93,9 @@ const SignUp = () => {
                 SIGN UP <small style={{ color: "green" }}>SUCCESS</small>
               </h3>
               <p>redirecting...</p>
-              <CircularSpiner color="success" />
+              <div className="center">
+                <CircularSpiner color="success" />
+              </div>
             </div>
           </div>
         </div>

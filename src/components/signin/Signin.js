@@ -82,7 +82,10 @@ const SignIn = () => {
                 LOGIN <small style={{ color: "green" }}>SUCCESS</small>
               </h3>
               <p>redirecting...</p>
+              <div className="center">
+
               <CircularSpiner color="success" />
+              </div>
             </div>
           </div>
         </div>
@@ -162,17 +165,11 @@ const SignIn = () => {
               onCheck={() => setChecked(!checked)}
             />
             <div className="signin-btn">
-              <ButtonHandler
-                text="Login"
-                variant="contained"
-                type="submit"
-               
-              />
+              <ButtonHandler text="Login" variant="contained" type="submit" />
               <ButtonHandler
                 text="Login with Google"
                 variant="standard"
                 onClick={signInWithGoogle}
-               
               />
             </div>
           </form>
